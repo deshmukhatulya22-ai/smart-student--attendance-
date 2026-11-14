@@ -1,3 +1,4 @@
+
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
@@ -24,9 +25,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api/attendance", (req, res) => {
-  const { name, roll, date, status } = req.body;
+  const { name, roll, email, branch, date, status } = req.body;
 
-  if (!name || !roll || !date || !status) {
+  if (!name || !roll || !email || !branch || !date || !status) {
     return res.status(400).json({ message: "All fields required" });
   }
 
@@ -40,7 +41,7 @@ app.post("/api/attendance", (req, res) => {
     return res.status(409).json({ message: "Attendance already marked" });
   }
 
-  data.push({ name, roll, date, status });
+  data.push({ name, roll, email, branch, date, status });
   saveData(data);
 
   res.json({ message: "Attendance saved successfully" });
